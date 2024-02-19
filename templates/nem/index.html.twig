@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% for nem in nems %}
+            <div class='col-md-4 d-flex justify-content-center'>
+
+                <div class="card mb-3 " style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ nem.name }}</h5>
+                        <p class="card-text">Price : {{ nem.price }}</p>
+                        <p class="card-text">Created at : {{ nem.createdAt|date("m/d/Y") }}</p>
+                        <p class="card-text">Auteur : {{ nem.author.email }}</p>
+
+                        <a href="{{ path("app_show", {id:nem.id}) }}" class="btn btn-primary">Voir</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

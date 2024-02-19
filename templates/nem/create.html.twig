@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form "bootstrap_5_layout.html.twig" %}
+
+{% block body %}
+
+    <h3>Nouveau nem</h3>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.price) }}
+    <button type="submit" class="btn btn-success">{{ btnValue }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}
