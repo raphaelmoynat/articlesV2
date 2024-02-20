@@ -12,6 +12,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ nem.name }}</h5>
                 <p class="card-text">Price : {{ nem.price }}</p>
+                <p class="card-text">Catégorie : {{ nem.category.name }}</p>
                 <p class="card-text">Auteur : {{ nem.author.email }}</p>
                 <a href="{{ path("app_nems") }}" class="btn btn-primary">Retour</a>
                 {% if app.user == nem.author %}

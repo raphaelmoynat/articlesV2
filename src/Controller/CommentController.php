@@ -51,7 +51,6 @@ class CommentController extends AbstractController
         $nem = $comment->getNem();
         if($this->getUser() === $comment->getAuthor()){
 
-
             $manager->remove($comment);
             $manager->flush();
 

@@ -11,6 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ nem.name }}</h5>
                         <p class="card-text">Price : {{ nem.price }}</p>
+                        <p class="card-text">Catégorie : {{ nem.category.name }}</p>
                         <p class="card-text">Created at : {{ nem.createdAt|date("m/d/Y") }}</p>
                         <p class="card-text">Auteur : {{ nem.author.email }}</p>
 
