@@ -36,9 +36,14 @@ class Nem
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'nem' )]
+    private Collection $likes;
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,5 +139,42 @@ class Nem
         $this->category = $category;
 
         return $this;
+    }
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setNem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getNem() === $this) {
+                $like->setNem(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function isLikedBy(User $user):bool
+    {
+        foreach ($this->likes as $like){
+            if($like->getAuthor() === $user){
+                return true;
+            }
+        }
+        return false;
     }
 }

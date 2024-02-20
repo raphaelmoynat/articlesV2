@@ -12,8 +12,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path("app_create") }}">Créer</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("app_category") }}">Catégorie</a>
+                </li>
                 {% if app.user %}
-                    <a class="nav-link" href="{{ path('app_logout') }}">log out</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Log out</a>
                 {% else %}
                     <a class="nav-link" href="{{ path('app_register') }}">Register</a>
                     <a class="nav-link" href="{{ path('app_login') }}">Log in</a>

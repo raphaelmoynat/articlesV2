@@ -17,7 +17,7 @@ class Like
     #[ORM\ManyToOne]
     private ?User $author = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?Nem $nem = null;
 
     public function getId(): ?int

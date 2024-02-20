@@ -13,7 +13,18 @@
                 <h5 class="card-title">{{ nem.name }}</h5>
                 <p class="card-text">Price : {{ nem.price }}</p>
                 <p class="card-text">Catégorie : {{ nem.category.name }}</p>
-                <p class="card-text">Auteur : {{ nem.author.email }}</p>
+                {% if app.user %}
+                <a href="{{ path('app_like', {id:nem.id}) }}" class="btn btn-primary">
+                    Liker{% if nem.isLikedBy(app.user) %}
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        {% else %}
+                            <i class="bi bi-hand-thumbs-up"></i>
+                    {% endif %}
+                </a>
+                <span>({{  nem.likes|length }})</span>
+                {% endif %}
+
+                <p class="card-text mt-3">Auteur : {{ nem.author.email }}</p>
                 <a href="{{ path("app_nems") }}" class="btn btn-primary">Retour</a>
                 {% if app.user == nem.author %}
                     <a href="{{ path("app_delete", {id: nem.id}) }}" class="btn btn-danger">Delete</a>
