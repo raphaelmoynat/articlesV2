@@ -9,10 +9,16 @@
 
                 <div class="card mb-3 " style="width: 18rem;">
                     <div class="card-body">
+                        <div class="d-flex flex-wrap">
+                            {% for image in nem.images %}
+                                <img class="img-fluid mr-2 mb-2" style="max-width: 100px; max-height: 100px;" src="{{ vich_uploader_asset(image) }}" alt="">
+                            {% endfor %}
+                        </div>
                         <h5 class="card-title">{{ nem.name }}</h5>
                         <p class="card-text">Price : {{ nem.price }}</p>
                         <p class="card-text">Catégorie : {{ nem.category.name }}</p>
-                        <p class="card-text">Created at : {{ nem.createdAt|date("m/d/Y") }}</p>
+                        {% include 'like/button.html.twig' with { routeName:"app_like", object:nem } %}
+                        <p class="card-text mt-5">Created at : {{ nem.createdAt|date("m/d/Y") }}</p>
                         <p class="card-text">Auteur : {{ nem.author.email }}</p>
 
                         <a href="{{ path("app_show", {id:nem.id}) }}" class="btn btn-primary">Voir</a>
@@ -22,5 +28,9 @@
 
         {% endfor %}
     </div>
+
+    {% if app.user %}
+        <script src="{{ asset('like.js') }}"></script>
+    {% endif %}
 
 {% endblock %}

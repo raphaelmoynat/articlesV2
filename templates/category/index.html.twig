@@ -8,8 +8,11 @@
 {% block body %}
     {% for category in categories %}
 
+        <div class="d-flex justify-content-between">
         <hr>
         {{ category.name }}
+            <a href="btn btn-warning">Supprimer</a>
+        </div>
 
     {% endfor %}
 

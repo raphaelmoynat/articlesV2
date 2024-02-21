@@ -39,11 +39,15 @@ class Nem
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'nem' )]
     private Collection $likes;
 
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'nem')]
+    private Collection $images;
+
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,5 +180,35 @@ class Nem
             }
         }
         return false;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setNem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getNem() === $this) {
+                $image->setNem(null);
+            }
+        }
+
+        return $this;
     }
 }

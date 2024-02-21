@@ -4,9 +4,11 @@ namespace App\Controller;
 
 
 use App\Entity\Comment;
+use App\Entity\Image;
 use App\Entity\Nem;
 
 use App\Form\CommentType;
+use App\Form\ImageType;
 use App\Form\NemType;
 use App\Repository\NemRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -116,6 +118,24 @@ class NemController extends AbstractController
             "btnValue"=>"Modifier"
         ]);
 
+    }
+
+    #[Route('/nem/image/add/{id}', name:"nem_add_image")]
+    public function addImage(Nem $nem, Request $request, EntityManagerInterface $manager):Response
+    {
+        $image = new Image();
+        $form = $this->createForm(ImageType::class, $image);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $image->setNem($nem);
+            $manager->persist($image);
+            $manager->flush();
+            return $this->redirectToRoute("app_show", ["id" => $nem->getId()]);
+
+        }
+
+        return $this->render("nem/addImage.html.twig", ["form"=>$form->createView()]);
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,5 +34,18 @@ class CategoryController extends AbstractController
             "form"=>$form->createView(),
             "categories"=>$categoryRepository->findAll(),
         ]);
+    }
+
+    #[Route('/category/delete/{id}', name: 'delete_comment')]
+    public function delete(Category $category, EntityManagerInterface $manager): Response
+    {
+
+
+        $manager->remove($category);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_category');
+
+
     }
 }

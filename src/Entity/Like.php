@@ -20,6 +20,9 @@ class Like
     #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?Nem $nem = null;
 
+    #[ORM\ManyToOne(inversedBy: 'likes')]
+    private ?Comment $comment = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Like
     public function setNem(?Nem $nem): static
     {
         $this->nem = $nem;
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?Comment $comment): static
+    {
+        $this->comment = $comment;
 
         return $this;
     }
