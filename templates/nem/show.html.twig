@@ -11,9 +11,8 @@
         <div class="card mb-3" style="width: 18rem;">
             <div class="card-body">
                 <div class="d-flex flex-wrap">
-                    {% for image in nem.images %}
-                        <img class="img-fluid mr-2 mb-2" style="max-width: 100px; max-height: 100px;" src="{{ vich_uploader_asset(image) }}" alt="">
-                    {% endfor %}
+                    {% include 'image/image_or_not_image.html.twig' with {object:nem} %}
+
                 </div>
                 <h5 class="card-title">{{ nem.name }}</h5>
                 <p class="card-text">Price : {{ nem.price }}</p>
@@ -28,7 +27,7 @@
                     <div class="d-flex ">
                     <a href="{{ path("app_delete", {id: nem.id}) }}" class="btn btn-danger">Delete</a>
                     <a href="{{ path("app_edit", {id: nem.id}) }}" class="btn btn-warning">Edit</a>
-                    <a href="{{ path("nem_add_image", {id: nem.id}) }}" class="btn btn-primary">Add Image</a>
+                    <a href="{{ path("nem_image", {id: nem.id}) }}" class="btn btn-primary">Add Image</a>
                     </div>
 
                 {% endif %}
@@ -45,12 +44,17 @@
         <hr>
         <div class="d-flex justify-content-between">
             <p><strong>{{ comment.author.email }}</strong></p>
-            <p>{{ comment.content }}</p>
+            <div>{{ comment.content }}
+                <div class="d-flex flex-wrap">
+                    {% include 'image/image_or_not_image.html.twig' with {object:comment} %}
+
+                </div></div>
             <div>
                 {% if app.user == comment.author %}
                     <a href="{{ path("delete_comment",{id:comment.id}) }}" class="btn btn-danger">Supprimer</a>
                     <a href="{{ path("edit_comment",{id:comment.id}) }}" class="btn btn-warning">Edit</a>
                     {% include 'like/button.html.twig' with { routeName:"comment_like", object:comment } %}
+                    <a href="{{ path("comment_image", {id: comment.id}) }}" class="btn btn-primary">Add Image</a>
 
                 {% endif %}
             </div>

@@ -1,0 +1,5 @@
+{% for image in object.images %}
+    <img class="img-fluid mr-2 mb-2" style="max-width: 100px; max-height: 100px;" src="{{ vich_uploader_asset(image) }}" alt="">
+    <a href="{{ path("delete_nem_image", {id:image.id}) }}">Supprimer</a>
+
+{% endfor %}

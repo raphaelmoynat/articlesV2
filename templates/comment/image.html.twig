@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block body %}
+
+    {% include 'image/image_or_not_image.html.twig' with {object:comment} %}
+    <h3>Ajouter image</h3>
+
+    {{ form_start(form, {attr:{action:path('add_comment_image', {id:comment.id})}}) }}
+    {{ form_row(form.imageFile) }}
+    <button type="submit" class="btn btn-success">ajouter</button>
+    {{ form_end(form) }}
+
+
+
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}

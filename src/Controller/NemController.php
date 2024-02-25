@@ -120,22 +120,18 @@ class NemController extends AbstractController
 
     }
 
-    #[Route('/nem/image/add/{id}', name:"nem_add_image")]
-    public function addImage(Nem $nem, Request $request, EntityManagerInterface $manager):Response
+    #[Route('/nem/image/{id}', name:"nem_image")]
+    public function addImage(Nem $nem):Response
     {
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $image->setNem($nem);
-            $manager->persist($image);
-            $manager->flush();
-            return $this->redirectToRoute("app_show", ["id" => $nem->getId()]);
 
-        }
 
-        return $this->render("nem/addImage.html.twig", ["form"=>$form->createView()]);
+        return $this->render("nem/image.html.twig", [
+            "nem"=>$nem,
+            'form'=>$form->createView()
+
+        ]);
     }
 
 

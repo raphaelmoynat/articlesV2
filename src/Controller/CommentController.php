@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Image;
 use App\Entity\Nem;
 use App\Form\CommentType;
+use App\Form\ImageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,6 +98,20 @@ class CommentController extends AbstractController
             "form"=>$form->createView(),
         ]);
 
+    }
+
+    #[Route('/comment/image/{id}', name:"comment_image")]
+    public function addImage(Comment $comment):Response
+    {
+        $image = new Image();
+        $form = $this->createForm(ImageType::class, $image);
+
+
+        return $this->render("comment/image.html.twig", [
+            "comment"=>$comment,
+            'form'=>$form->createView()
+
+        ]);
     }
 
 }

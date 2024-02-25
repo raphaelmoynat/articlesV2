@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NemRepository::class)]
+
 class Nem
 {
     #[ORM\Id]
@@ -41,6 +42,8 @@ class Nem
 
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'nem')]
     private Collection $images;
+
+
 
 
     public function __construct()
@@ -211,4 +214,5 @@ class Nem
 
         return $this;
     }
+
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
@@ -13,11 +12,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Image
 {
     #[ORM\Id]
-    #[ORM\Column]
     #[ORM\GeneratedValue]
+    #[ORM\Column]
     private ?int $id = null;
-
-    // ... other fields
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'mes_images', fileNameProperty: 'imageName', size: 'imageSize')]
@@ -34,6 +31,14 @@ class Image
 
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Nem $nem = null;
+
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Comment $comment = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -88,6 +93,18 @@ class Image
     public function setNem(?Nem $nem): static
     {
         $this->nem = $nem;
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?Comment $comment): static
+    {
+        $this->comment = $comment;
 
         return $this;
     }

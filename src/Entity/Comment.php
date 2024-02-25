@@ -30,9 +30,13 @@ class Comment
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'comment')]
     private Collection $likes;
 
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'comment')]
+    private Collection $images;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,5 +121,35 @@ class Comment
             }
         }
         return $isLiked;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getComment() === $this) {
+                $image->setComment(null);
+            }
+        }
+
+        return $this;
     }
 }

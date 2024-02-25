@@ -4,9 +4,9 @@
         Like
         (<span class="nbrLikes">{{ object.likes|length }}</span>)
 
-        <i
-                class="thumb bi bi-hand-thumbs-up{% if object.isLikedBy(app.user) %}-fill{% endif %}"
-        ></i>
+        <i class="thumb bi bi-hand-thumbs-up{% if object.isLikedBy(app.user) %}-fill{% endif %}">
+
+        </i>
 
     </a>
 {% else %}

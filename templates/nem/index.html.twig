@@ -10,9 +10,8 @@
                 <div class="card mb-3 " style="width: 18rem;">
                     <div class="card-body">
                         <div class="d-flex flex-wrap">
-                            {% for image in nem.images %}
-                                <img class="img-fluid mr-2 mb-2" style="max-width: 100px; max-height: 100px;" src="{{ vich_uploader_asset(image) }}" alt="">
-                            {% endfor %}
+                            {% include 'image/image_or_not_image.html.twig' with {object:nem} %}
+
                         </div>
                         <h5 class="card-title">{{ nem.name }}</h5>
                         <p class="card-text">Price : {{ nem.price }}</p>
